@@ -27,7 +27,7 @@ const Login = ({ setIsAuthenticated }) => {
 
     try {
       // Call the new API endpoint to get the user by email
-      const response = await axios.get(`http://localhost:5000/api/users/${formData.email}`);
+      const response = await axios.get(`${process.env.API_URI}/api/users/${formData.email}`);
 
       // Compare passwords (Note: In real apps, hash the passwords and use bcrypt)
       const storedPassword = response.data.password;

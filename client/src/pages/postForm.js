@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Form, Input, Button, message, Spin } from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom"; // Import useParams to get route parameters
@@ -11,17 +11,10 @@ const PostForm = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (id) {
-      fetchPostData(id);
-    }
-  }, [id]);
-
-  // Fetch post data from the API
-  const fetchPostData = async (postId) => {
+  const fetchPostData = useCallback(async (postId) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5000/posts/${postId}`);
+      const response = await axios.get(`${process.env.API_URI}/posts/${postId}`);
       const post = response.data;
 
       // Populate the form with the post data
@@ -36,7 +29,13 @@ const PostForm = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [form]);
+
+  useEffect(() => {
+    if (id) {
+      fetchPostData(id);
+    }
+  }, [id, fetchPostData]);
 
   // Handle form submission
   const handleSubmit = async (values) => {
@@ -44,14 +43,14 @@ const PostForm = () => {
     try {
       if (id) {
         // Update existing post
-        await axios.put(`http://localhost:5000/posts/${id}`, {
+        await axios.put(`${process.env.API_URI}/posts/${id}`, {
           ...values,
           poster: user.id
         });
         message.success("Post updated successfully.");
       } else {
         // Create new post
-        await axios.post("http://localhost:5000/posts", {
+        await axios.post(`${process.env.API_URI}/posts`, {
           ...values,
           poster: user.id
         });
