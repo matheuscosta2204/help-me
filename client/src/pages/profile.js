@@ -26,7 +26,7 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true)
     try {
-      const response = await axios.put(`${process.env.API_URI}/api/users/${user.id}`, { ...formData, email: user.email, age: parseInt(formData.age, 10)});
+      const response = await axios.put(`${process.env.REACT_APP_API_URI}/api/users/${user.id}`, { ...formData, email: user.email, age: parseInt(formData.age, 10)});
       alert("Profile updated successfully!");
       setFormData(response)
       setLoading(false)

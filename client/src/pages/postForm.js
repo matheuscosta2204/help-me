@@ -14,7 +14,7 @@ const PostForm = () => {
   const fetchPostData = useCallback(async (postId) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${process.env.API_URI}/posts/${postId}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URI}/posts/${postId}`);
       const post = response.data;
 
       // Populate the form with the post data
@@ -43,14 +43,14 @@ const PostForm = () => {
     try {
       if (id) {
         // Update existing post
-        await axios.put(`${process.env.API_URI}/posts/${id}`, {
+        await axios.put(`${process.env.REACT_APP_API_URI}/posts/${id}`, {
           ...values,
           poster: user.id
         });
         message.success("Post updated successfully.");
       } else {
         // Create new post
-        await axios.post(`${process.env.API_URI}/posts`, {
+        await axios.post(`${process.env.REACT_APP_API_URI}/posts`, {
           ...values,
           poster: user.id
         });

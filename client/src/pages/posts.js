@@ -15,7 +15,7 @@ const Posts = () => {
   const fetchPosts = async (page, pageSize) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${process.env.API_URI}/posts`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URI}/posts`, {
         params: { page, pageSize },
       });
       console.log('response.data?.data?.posts', response.data?.data?.posts)

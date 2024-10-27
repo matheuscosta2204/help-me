@@ -26,8 +26,9 @@ const Login = ({ setIsAuthenticated }) => {
     setError("");
 
     try {
+      console.log('REACT_APP_API_URI', process.env.REACT_APP_API_URI)
       // Call the new API endpoint to get the user by email
-      const response = await axios.get(`${process.env.API_URI}/api/users/${formData.email}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URI}/api/users/${formData.email}`);
 
       // Compare passwords (Note: In real apps, hash the passwords and use bcrypt)
       const storedPassword = response.data.password;

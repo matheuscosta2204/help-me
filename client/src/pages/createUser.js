@@ -24,7 +24,7 @@ const CreateUser = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${process.env.API_URI}/api/users`, formData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URI}/api/users`, formData);
       console.log(response.data);
       setLoading(false);
       navigate("/login");
